@@ -32,6 +32,10 @@ public class StudentService {
         return studentRepository.findById(id);
     }
 
+    public Optional<Student> getStudentByNationalId(String nationalId) {
+        return studentRepository.findByNationalId(nationalId);
+    }
+
     public Student createStudent(Student student) {
         return studentRepository.save(student);
     }
