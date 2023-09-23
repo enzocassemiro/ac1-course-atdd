@@ -22,7 +22,11 @@ public class CourseService {
     }
 
     public Optional<Course> getCourseById(Long id) {
-        return courseRepository.findById(id);
+        if (courseRepository.existsById(id)) {
+            return courseRepository.findById(id);
+        } else {
+            throw new NotFoundException(id);
+        }
     }
 
     public Course createCourse(Course course) {
