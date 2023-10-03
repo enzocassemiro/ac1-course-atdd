@@ -34,12 +34,12 @@ public class CourseService {
     }
 
     public Course updateCourse(Long id, Course updatedCourse) {
-        if (courseRepository.existsById(id)) {
-            updatedCourse.setId(id);
-            return courseRepository.save(updatedCourse);
-        } else {
-            throw new NotFoundException(id);
-        }
+        return courseRepository.findById(id)
+                .map(course -> {
+                    updatedCourse.setId(id);
+                    return courseRepository.save(updatedCourse);
+                })
+                .orElseThrow(() -> new NotFoundException(id));
     }
 
     public void deleteCourse(Long id) {

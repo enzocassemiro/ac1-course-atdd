@@ -41,6 +41,16 @@ public class Student {
         this.courses = new ArrayList<>();
     }
 
+    public Student(Long id, String name, String nationalId, String birthDate) {
+        this.id = id;
+        this.name = name;
+        this.nationalId = nationalId;
+        this.birthDate = birthDate;
+        this.level = StudentLevel.DEFAULT.getLimit();
+        this.courses = new ArrayList<>();
+    }
+
+
     public Student(String name, String nationalId, String birthDate, Integer level) {
         this.name = name;
         this.nationalId = nationalId;
