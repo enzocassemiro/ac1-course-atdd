@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -27,7 +30,7 @@ public class StudentController {
     }
 
     @GetMapping("v1")
-    public ResponseEntity<StudentDTO> getStudent(@RequestHeader(name = "nationalId") String nationalId) {
+    public ResponseEntity<StudentDTO> getStudentByNationalId(@RequestHeader(name = "nationalId") String nationalId) {
         if (studentService.getStudentByNationalId(nationalId).isPresent()) {
             StudentDTO studentDTO = StudentMapper.mapStudentToStudentDTO(studentService.getStudentByNationalId(nationalId).get());
             return new ResponseEntity<>(studentDTO, HttpStatus.OK);
@@ -36,4 +39,12 @@ public class StudentController {
         }
     }
 
+    @GetMapping("v1")
+    public ResponseEntity<List<StudentDTO>> getAllStudents() {
+        List<Student> students = studentService.getAllStudents();
+        List<StudentDTO> studentDTOs = students.stream()
+                .map(StudentMapper::mapStudentToStudentDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(studentDTOs);
+    }
 }

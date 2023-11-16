@@ -1,15 +1,19 @@
 package com.arula.Cursos.controllers;
 
 import com.arula.Cursos.dto.CourseDTO;
+import com.arula.Cursos.dto.StudentDTO;
 import com.arula.Cursos.entity.Course;
 import com.arula.Cursos.mapper.CourseMapper;
+import com.arula.Cursos.mapper.StudentMapper;
 import com.arula.Cursos.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/course")
@@ -29,7 +33,7 @@ public class CourseController {
     }
 
     @GetMapping("v1/{id}")
-    public ResponseEntity<CourseDTO> getCourse(@PathVariable Long id) {
+    public ResponseEntity<CourseDTO> getCourseById(@PathVariable Long id) {
         Optional<Course> course = courseService.getCourseById(id);
         if (course.isPresent()) {
             CourseDTO courseDTO  = CourseMapper.mapCourseToCourseDTO(course.get());
@@ -38,5 +42,14 @@ public class CourseController {
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("v1")
+    public ResponseEntity<List<CourseDTO>> getAllCourses() {
+        List<Course> courses = courseService.getAllCourses();
+        List<CourseDTO> coursesDtos = courses.stream()
+                .map(CourseMapper::mapCourseToCourseDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(coursesDtos);
     }
 }
