@@ -1,10 +1,8 @@
 package com.arula.Cursos.controllers;
 
 import com.arula.Cursos.dto.CourseDTO;
-import com.arula.Cursos.dto.StudentDTO;
 import com.arula.Cursos.entity.Course;
 import com.arula.Cursos.mapper.CourseMapper;
-import com.arula.Cursos.mapper.StudentMapper;
 import com.arula.Cursos.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
