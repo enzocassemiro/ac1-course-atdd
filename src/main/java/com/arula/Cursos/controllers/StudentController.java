@@ -39,7 +39,7 @@ public class StudentController {
         }
     }
 
-    @GetMapping("v1")
+    @GetMapping("v1/all")
     public ResponseEntity<List<StudentDTO>> getAllStudents() {
         List<Student> students = studentService.getAllStudents();
         List<StudentDTO> studentDTOs = students.stream()
