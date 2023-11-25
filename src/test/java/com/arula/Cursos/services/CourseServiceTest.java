@@ -39,7 +39,7 @@ class CourseServiceTest {
 
         when(courseRepository.findAll()).thenReturn(new ArrayList<>(List.of(course, course2)));
 
-        List<Course> courses = courseService.getAll();
+        List<Course> courses = courseService.getAllCourses();
 
         assertEquals(2, courses.size());
         assertTrue(courses.contains(course));

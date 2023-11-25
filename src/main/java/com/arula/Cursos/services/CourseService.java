@@ -17,7 +17,7 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
-    public List<Course> getAll() {
+    public List<Course> getAllCourses() {
         return courseRepository.findAll();
     }
 
